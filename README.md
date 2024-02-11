@@ -41,10 +41,10 @@ Beep boop, you are in on ssh in rescue system.
 
 ### Let's get to real work from this point 
 - Download and extract the portable qemu-kvm. /tmp folder is enough for this portable qemu-kvm. Just run this<br>
-`wget -qO- /tmp https://github.com/AnimeKaizoku/InstallWindowsOnHetzner/raw/main/vkvm.tar.gz | tar xvz -C /tmp`
+`wget -qO- /tmp https://github.com/chriswilson2020/InstallWindowsOnHetzner/raw/main/vkvm.tar.gz | tar xvz -C /tmp`
 
 - If you dedicated server has a hard drive that is more than 2TB then you need to use the UEFI version too, run this one only if you have a drive that is bigger than 2tb in size (if you have multiple drives of 2tb you can ignore this step)<br>
-`wget -qO- /tmp https://github.com/AnimeKaizoku/InstallWindowsOnHetzner/raw/main/uefi.tar.gz | tar -xvz -C /tmp`
+`wget -qO- /tmp https://github.com/chriswilson2020/InstallWindowsOnHetzner/raw/main/uefi.tar.gz | tar -xvz -C /tmp`
 
 ### Okay, we are setup on our emulator, lets download a windows ISO and what better place than Hetzner itself? 
 
