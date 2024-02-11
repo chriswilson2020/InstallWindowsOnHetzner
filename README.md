@@ -121,4 +121,5 @@ Go to my computer properties once your server is up > advanced system settings >
 ![img3](https://i.imgur.com/BdmEbaL.png)
 
 Save, then click reboot and then try to connect. 
+If you can't connect then it might be that EFI is not enabled in the BIOS in this case send a ticket request to support for them to activate EFI in the bios.  To avoid account lockout between EFI activation and reboot and you coming to the server remember to enable the firewall and close the rdp port 3389 (default)
 Done, **you are splendid**
