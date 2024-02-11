@@ -69,14 +69,7 @@ To save you the time I have the external url's here
 
 #### If link is incorrect, go to https://download.hetzner.com/bootimages/windows/ and find correct name of .ISO file
 
-There are 3 images, I recommend server 2019 at this point of time - 2022 is too experimental.
-
-Here is the internal URL: http://mirror.hetzner.de<br>
-So just replace `download.hetzner.com` with `mirror.hetzner.de`
-
-[Win Server STD CORE 2019 64Bit internal URL](http://mirror.hetzner.de/bootimages/windows/SW_DVD9_Win_Server_STD_CORE_2019_1809.11_64Bit_English_DC_STD_MLF_X22-51041.ISO)
-
-Now that's the URL that our server can access anytime without any logins needed. 
+There are 3 images, I am using 2022 
 
 Now close your eyes and run these commands in serial order<br>
 ```
@@ -89,14 +82,24 @@ cd /
 ### Now we run the qemu kun by running this command
 **Do not hit enter until you read the VNC section first you sick fucks**
 
+For servers with no 2TB+ NVME
+```
+/tmp/qemu-system-x86_64 -net nic -net user,hostfwd=tcp::3389-:3389 -m 10000M -localtime -enable-kvm -cpu core2duo,+nx -smp 2 -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/nvme0n1 -boot once=d -vnc :1
+```
+
+For servers with a 2TB+ NVME and UEFI
+```
+/tmp/qemu-system-x86_64 -bios /tmp/uefi.bin -net nic -net user,hostfwd=tcp::3389-:3389 -m 10000M -localtime -enable-kvm -cpu core2duo,+nx -smp 2 -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/nvme0n1 -boot once=d -vnc :1
+```
+
 For servers with no 2TB+ HDD
 ```
-/tmp/qemu-system-x86_64 -net nic -net user,hostfwd=tcp::3389-:3389 -m 2048M -localtime -enable-kvm -cpu host,+nx -M pc -smp 2 -vga std -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/sda -boot once=d -vnc :1
+/tmp/qemu-system-x86_64 -net nic -net user,hostfwd=tcp::3389-:3389 -m 10000M -localtime -enable-kvm -cpu core2duo,+nx -smp 2 -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/sda -boot once=d -vnc :1
 ```
 
 For servers with a 2TB+ HDD and UEFI
 ```
-/tmp/qemu-system-x86_64 -bios /tmp/uefi.bin -net nic -net user,hostfwd=tcp::3389-:3389 -m 2048M -localtime -enable-kvm -cpu host,+nx -M pc -smp 2 -vga std -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/sda -boot once=d -vnc :1
+/tmp/qemu-system-x86_64 -bios /tmp/uefi.bin -net nic -net user,hostfwd=tcp::3389-:3389 -m 10000M -localtime -enable-kvm -cpu core2duo,+nx -smp 2 -usbdevice tablet -k en-us -cdrom /tmp/SW_DVD9_Win_Server_STD_CORE_2022_2108.15_64Bit_English_DC_STD_MLF_X23-31801.ISO -hda /dev/sda -boot once=d -vnc :1
 ```
 
 ## This is the VNC section
@@ -105,14 +108,17 @@ Put the IP of the server in the connection field like this
 yourIP:1
 
 Where yourIP is ofc your server IP<br>
-Example: 192.168.0.1:1
+Example: [*YOUR IP HERE*]:1
 
 
 Now hit enter on the ssh, then hit connect on the VNC viewer
 Hit connect, vnc will connect you to an rdp session where you will load the OS - in some cases, because its loading the OS like its from a pendrive you might get a *press and key to boot from disk/cd* so if you run the ssh command first you might miss this prompt and the ISO might not boot. 
 This is why i said to prepare VNC first. 
 
-From here its just a normal windows install, do that yada yada, install the os
+From here for HDD < 2TB its just a normal windows install, do that yada yada, install the os
+If you have a HDD or NVME > 2TB I reccomend selecting repair windows and just making sure you have the drive set up as GPT you can do that following the screenshot below:
+<img width="776" alt="Screenshot 2024-02-11 at 12 17 22" src="https://github.com/chriswilson2020/InstallWindowsOnHetzner/assets/73828727/502d82e4-b507-49fb-adb7-9196de6447fd">
+
 Login to the server 
 
 Go to my computer properties once your server is up > advanced system settings > remote > and tick the following 
