@@ -6,11 +6,6 @@ Hetzner has multiple ways of installing windows server editions on dedicated nod
 
 List of methods 
 - Install using Rescue system and VNC 
-- Install using support ticket and KVM 
-- Install using KVM and mount yourself 
-
-
-I will take time and cover all 3 methods. 
 
 Some stuff you need to know before you proceed because I wont re-re explain these:<br>
 <br>
